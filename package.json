@@ -18,5 +18,8 @@
     "awesome-typescript-loader": "^3.0.4-rc.0",
     "source-map-loader": "^0.1.6",
     "typescript": "^2.1.6"
+  },
+  "scripts": {
+    "build": "rm -rf dist/*; cp index.html dist/; webpack;"
   }
 }
