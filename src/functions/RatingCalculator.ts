@@ -17,6 +17,30 @@ export class LoanState {
 export default function (rating: string): LoanState {
     
     console.log('selected rating: ' + rating);   
+
+        // https://api.zonky.cz/loans/marketplace?rating__eq=D
+
+    var request = new XMLHttpRequest();
+
+    request.open('GET', 'https://api.zonky.cz/loans/marketplace?rating__eq=' + rating);
+
+    request.onreadystatechange = function () {
+
+        console.log('Status:', this.status);
+
+        if (this.readyState === 4) {
+            console.log('Status:', this.status);
+            console.log('Headers:', this.getAllResponseHeaders());
+            console.log('Body:', this.responseText);
+        }
+    };
+
+
+    request.onerror = function (err) {
+        console.log('err:', err);
+    };
+
+    request.send();
     
     // Rating: 
     // A**  téměř bez rizika
