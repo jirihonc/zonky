@@ -32,5 +32,5 @@ var credentials = {key: privateKey, cert: certificate};
 var httpServer = http.createServer(app);
 var httpsServer = https.createServer(credentials, app);
 
-httpServer.listen(process.env.PORT || 6000);
-httpsServer.listen(6443);
+httpServer.listen(process.env.PORT || 5000);
+httpsServer.listen(5443);
