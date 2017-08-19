@@ -4,22 +4,19 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "rm -rf dist/*; cp {index.html,*.pem} dist/; webpack;"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@types/react": "^15.0.8",
+    "@types/react": "^15.6.1",
     "@types/react-dom": "^0.14.23",
-    "react": "^15.4.2",
-    "react-dom": "^15.4.2"
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1"
   },
   "devDependencies": {
-    "awesome-typescript-loader": "^3.0.4-rc.0",
+    "awesome-typescript-loader": "^3.2.3",
     "source-map-loader": "^0.1.6",
-    "typescript": "^2.1.6"
-  },
-  "scripts": {
-    "build": "rm -rf dist/*; cp index.html dist/; webpack;"
+    "typescript": "^2.4.2"
   }
 }
