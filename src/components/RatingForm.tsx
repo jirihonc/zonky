@@ -37,7 +37,10 @@ export default class RatingForm extends React.Component<LabelProps, LoanState> {
 
     render() {
 
-        const avg = this.state.avgLoan.toFixed(2);
+        // let avg = this.state.avgLoan.toFixed(2);
+
+        let avg = this.state.avgLoan.toLocaleString('cs-CZ', { minimumFractionDigits: 0 }) + ' kc';
+
         const count = this.state.numOfCust;
 
         console.log('rendered avg: ' + avg);    
@@ -53,10 +56,10 @@ export default class RatingForm extends React.Component<LabelProps, LoanState> {
                                                     
                             <select onChange={this.formChanged} id="rating" name="rating" value={this.state.rating}>
                                 <option value="" disabled>Vyber rating</option>
-                                <option value="A**">A**  téměř bez rizika</option>
-                                <option value="A*">A*   nejnižší riziko</option>
-                                <option value="A++">A++  nízké riziko</option>
-                                <option value="A+">A+   nízké riziko</option>
+                                <option value="AAAAA">A**  téměř bez rizika</option>
+                                <option value="AAAA">A*   nejnižší riziko</option>
+                                <option value="AAA">A++  nízké riziko</option>
+                                <option value="AA">A+   nízké riziko</option>
                                 <option value="A">A    nižší riziko</option>
                                 <option value="B">B    střední riziko</option>
                                 <option value="C">C    vyšší riziko</option>
@@ -66,12 +69,6 @@ export default class RatingForm extends React.Component<LabelProps, LoanState> {
                         </div>
                     </div>
                 </fieldset> 
-
-                <div className="row">                        
-                    <div className="col-md-12">
-                        <h4>Celkovy pocet pujcek: {count}</h4>
-                    </div>
-                </div>
 
                 <div className="row">                        
                     <div className="col-md-12">
