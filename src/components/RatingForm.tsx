@@ -49,33 +49,31 @@ export default class RatingForm extends React.Component<LabelProps, LoanState> {
         return (
 
             <div>
-                <h2>{this.props.label}</h2>                
+                <h1>{this.props.label}</h1>                
 
                 <fieldset>
                     <div className="row">                        
-                        <div className="col-md-12">
-                                                    
-                            <select onChange={this.formChanged} id="rating" name="rating" value={this.state.rating}>
-                                <option value="" disabled>Vyber rating</option>
-                                <option value="AAAAA">A**  téměř bez rizika</option>
-                                <option value="AAAA">A*   nejnižší riziko</option>
-                                <option value="AAA">A++  nízké riziko</option>
-                                <option value="AA">A+   nízké riziko</option>
-                                <option value="A">A    nižší riziko</option>
-                                <option value="B">B    střední riziko</option>
-                                <option value="C">C    vyšší riziko</option>
-                                <option value="D">D    rizikové</option>
-                            </select>
-                            
+                        <div className="col-md-6">
+                            <div className="styled-select slate">                     
+                                <select onChange={this.formChanged} id="rating" name="rating" value={this.state.rating}>
+                                    <option value="" disabled>Vyber rating</option>
+                                    <option value="AAAAA">A**  téměř bez rizika</option>
+                                    <option value="AAAA">A*   nejnižší riziko</option>
+                                    <option value="AAA">A++  nízké riziko</option>
+                                    <option value="AA">A+   nízké riziko</option>
+                                    <option value="A">A    nižší riziko</option>
+                                    <option value="B">B    střední riziko</option>
+                                    <option value="C">C    vyšší riziko</option>
+                                    <option value="D">D    rizikové</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div className="col-md-6">
+                            <h3>Průměrná výše půjčky: {avg}</h3>
                         </div>
                     </div>
                 </fieldset> 
-
-                <div className="row">                        
-                    <div className="col-md-12">
-                        <h4>Průměrná výše půjčky: {avg}</h4>
-                    </div>
-                </div>
             </div>
          
         );    
