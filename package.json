@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "rm -rf dist/*; cp {index.html,*.pem} dist/; webpack;"
+    "build": "rm -rf dist/*; cp {index.html,*.pem,favicon.ico} dist/; webpack;"
   },
   "author": "",
   "license": "ISC",
