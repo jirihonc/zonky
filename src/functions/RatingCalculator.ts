@@ -5,12 +5,14 @@ export class LoanState {
     numOfCust: number;
     avgLoan: number;
     totalLoan: number;
+    inProcess: boolean;
 
-    constructor(rating: string, numOfCust: number, avgLoan: number, totalLoan: number) {
+    constructor(rating: string, numOfCust: number, avgLoan: number, totalLoan: number, inProcess: boolean) {
         this.rating = rating;
         this.numOfCust = numOfCust;
         this.avgLoan = avgLoan;
         this.totalLoan = totalLoan;
+        this.inProcess = inProcess;
     } 
 } 
 
@@ -80,6 +82,8 @@ function marketplace (rating: string, caller: any) {
     // https://www.thepolyglotdeveloper.com/2014/08/bypass-cors-errors-testing-apis-locally/
     // https://api.zonky.cz/loans/marketplace?rating__eq=D
 
+    caller.setState(new LoanState(rating, 0, 0, 0, true));
+
     var request = new XMLHttpRequest();
 
     request.open('GET', 'https://api.zonky.cz/loans/marketplace?rating__eq=' + rating);
@@ -144,5 +148,5 @@ function calculateLoan(rating: string, data : ZonkyLoan[]): LoanState {
     console.log('Number of loans ' + count);
     // console.log('Avg loan is ' + (sum / count));
 
-    return new LoanState(rating, count, (sum / count), sum);
+    return new LoanState(rating, count, (sum / count), sum, false);
 }

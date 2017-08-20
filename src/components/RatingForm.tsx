@@ -16,7 +16,8 @@ export default class RatingForm extends React.Component<LabelProps, LoanState> {
             rating: '',
             numOfCust: 0,
             avgLoan: 0,
-            totalLoan: 0
+            totalLoan: 0,
+            inProcess: false
         };
 
         this.formChanged = this.formChanged.bind(this);
@@ -39,11 +40,11 @@ export default class RatingForm extends React.Component<LabelProps, LoanState> {
 
         // let avg = this.state.avgLoan.toFixed(2);
 
-        let avg = this.state.avgLoan.toLocaleString('cs-CZ', { minimumFractionDigits: 0 }) + ' kc';
+        let avg = (this.state.inProcess) ? 'zpracovává se...' : this.state.avgLoan.toLocaleString('cs-CZ', { maximumFractionDigits: 0 }) + ' kč';
 
         const count = this.state.numOfCust;
 
-        console.log('rendered avg: ' + avg);    
+        // console.log('rendered avg: ' + avg);    
 
         return (
 
@@ -72,7 +73,7 @@ export default class RatingForm extends React.Component<LabelProps, LoanState> {
 
                 <div className="row">                        
                     <div className="col-md-12">
-                        <h4>Prumerna vyse pujcky: {avg}</h4>
+                        <h4>Průměrná výše půjčky: {avg}</h4>
                     </div>
                 </div>
             </div>
