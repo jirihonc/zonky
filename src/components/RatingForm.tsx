@@ -2,6 +2,8 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 
+
+
 import ratingCalc, {LoanState} from "../functions/RatingCalculator";
 
 interface LabelProps {label: string}
@@ -26,11 +28,11 @@ export default class RatingForm extends React.Component<LabelProps, LoanState> {
  
         let formValues = {...this.state, [name]: target.value};
 
-        let loan = ratingCalc(target.value);
+        ratingCalc(target.value, this);
 
-        console.log('avg: ' + loan.avgLoan);       
+        // console.log('avg: ' + loan.avgLoan);       
 
-        this.setState(loan); 
+        // this.setState(loan); 
     }  
 
     render() {
