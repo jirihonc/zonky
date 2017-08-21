@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <!-- <link rel="stylesheet" href="css/styles.css"> -->
+
+        <title>Zonky rating</title>
+        <style>
+            body {
+                padding: 50px 10px 10px 10px;
+                background-color: #41b2bd;
+                color: #fff;
+            }
+            h1, h2 {
+                /* font-family: Borden,sans-serif; */
+                font-family: "Comic Sans MS", cursive, sans-serif;
+                font-weight: 400;
+                text-align: center;
+            }
+            
+            @media screen and (min-width: 768px) {
+                h1 {
+                    font-size: 3.5rem;
+                    text-transform: uppercase;
+                }
+            }
+
+            h3 {
+                font-family: "Comic Sans MS", cursive, sans-serif;
+                font-weight: 400;
+            }
+            
+            .left { 
+                text-align: left;
+            }
+            .row input {width: 88%}
+            form {width: 430px}
+
+            /* -------------------- Page Styles (not required) */
+            /* div { margin: 20px; } */
+
+            /* -------------------- Select Box Styles: bavotasan.com Method (with special adaptations by ericrasch.com) */
+            /* -------------------- Source: http://bavotasan.com/2011/style-select-box-using-only-css/ */
+            .styled-select {
+                background: url(http://i62.tinypic.com/15xvbd5.png) no-repeat 96% 0;
+                height: 29px;
+                overflow: hidden;
+                width: 240px;
+                color: whitesmoke;
+            }
+
+            .styled-select select {
+                background: transparent;
+                border: none;
+                font-size: 14px;
+                height: 29px;
+                padding: 5px; /* If you add too much padding here, the options won't show in IE */
+                width: 268px;
+            }
+
+            .styled-select.slate {
+                /* background: url(http://i62.tinypic.com/2e3ybe1.jpg) no-repeat right center; */
+                background-color: #4c5264;
+                height: 34px;
+                width: 240px;
+                margin-top: 15px;                
+                border-radius: 5px;
+            }
+
+            @media screen and (min-width: 1000px) {
+                .styled-select.slate {
+                    margin-left: auto;
+                }
+            }
+
+            .styled-select.slate select {
+                border: 1px solid #ccc;
+                font-size: 16px;
+                height: 34px;
+                width: 268px;
+                color: whitesmoke;
+               
+            }
+
+            /* -------------------- Rounded Corners */
+            .rounded {
+                -webkit-border-radius: 20px;
+                -moz-border-radius: 20px;
+                border-radius: 20px;
+            }
+
+            .semi-square {
+            -webkit-border-radius: 5px;
+            -moz-border-radius: 5px;
+            border-radius: 5px;
+            }
+
+            /* -------------------- Colors: Background */
+            .slate   { background-color: #ddd; }
+            .green   { background-color: #779126; }
+            .blue    { background-color: #3b8ec2; }
+            .yellow  { background-color: #eec111; }
+            .black   { background-color: #000; }
+
+            /* -------------------- Colors: Text */
+            .slate select   { color: #000; }
+            .green select   { color: #fff; }
+            .blue select    { color: #fff; }
+            .yellow select  { color: #000; }
+            .black select   { color: #fff; }
+
+        </style>     
+   
+    </head>
+    <body>
+        <div id="content"></div>
+
+        <!-- Dependencies -->
+        <script src="./react/dist/react.js"></script>
+        <script src="./react-dom/dist/react-dom.js"></script>
+
+        <!-- Main -->
+        <script src="bundle.js"></script>
+    </body>
+</html>
