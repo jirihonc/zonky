@@ -1,8 +1,5 @@
-
 import * as React from "react";
 import * as ReactDOM from "react-dom";
-
-
 
 import ratingCalc, {LoanState} from "../functions/RatingCalculator";
 
@@ -29,22 +26,14 @@ export default class RatingForm extends React.Component<LabelProps, LoanState> {
  
         let formValues = {...this.state, [name]: target.value};
 
-        ratingCalc(target.value, this);
-
-        // console.log('avg: ' + loan.avgLoan);       
-        // let loan = new LoanState('',0,0,0,false);
-        // this.setState(loan); 
+        ratingCalc(target.value, (loan: LoanState) => this.setState(loan))
     }  
 
     render() {
 
-        // let avg = this.state.avgLoan.toFixed(2);
-
         let avg = (this.state.inProcess) ? 'zpracovává se...' : this.state.avgLoan.toLocaleString('cs-CZ', { maximumFractionDigits: 0 }) + ' kč';
 
         const count = this.state.numOfCust;
-
-        // console.log('rendered avg: ' + avg);    
 
         return (
 

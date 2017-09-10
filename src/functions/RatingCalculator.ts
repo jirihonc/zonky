@@ -1,4 +1,3 @@
-
 export class LoanState {
 
     rating: string;
@@ -77,12 +76,12 @@ function auth(): string {
 }
 
 
-function marketplace (rating: string, caller: any) {
+function marketplace (rating: string, updateLoanResult: (loan: LoanState) => void) {
 
     // https://www.thepolyglotdeveloper.com/2014/08/bypass-cors-errors-testing-apis-locally/
     // https://api.zonky.cz/loans/marketplace?rating__eq=D
 
-    caller.setState(new LoanState(rating, 0, 0, 0, true));
+    updateLoanResult(new LoanState(rating, 0, 0, 0, true));
 
     var request = new XMLHttpRequest();
 
@@ -109,10 +108,13 @@ function marketplace (rating: string, caller: any) {
 
                 let loan = calculateLoan(rating, data);
 
-                caller.setState(loan); 
+                updateLoanResult(loan); 
             } else {
                 console.log('No response');
                 console.log(this.responseText);
+
+                updateLoanResult(new LoanState(rating)); 
+                alert("Network connection problem: " + this.responseText);                
             }
         }
     };
@@ -121,20 +123,20 @@ function marketplace (rating: string, caller: any) {
     request.onerror = function (this: XMLHttpRequestEventTarget, ev: ErrorEvent) {
         console.log('err:', this);
         console.log('event:', ev);
-        caller.setState(new LoanState(rating)); 
+        updateLoanResult(new LoanState(rating)); 
         alert("Network connection problem");
     };
 
     request.send();
 }
 
-
-export default function (rating: string, caller: any): void {
+// updateLoanResult(loan: LoanState)
+export default function (rating: string, updateLoanResult: (loan: LoanState) => void): void {
     
     console.log('selected rating: ' + rating);   
 
     // auth();
-    marketplace(rating, caller);
+    marketplace(rating, updateLoanResult);
 } 
 
 function calculateLoan(rating: string, data : ZonkyLoan[]): LoanState {
