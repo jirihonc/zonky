@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "rm -rf dist/*; cp {index.html,*.pem,favicon.ico} dist/; mkdir dist/css; cp src/css/zonky.css dist/css;webpack;"
+    "build": "rm -rf dist/*; cp {index.html,*.pem,favicon.ico} dist/; mkdir dist/css; cp src/css/zonky.css dist/css;webpack;",
+    "test": "node_modules/.bin/mocha -w"
   },
   "author": "",
   "license": "ISC",
@@ -17,6 +18,8 @@
   "devDependencies": {
     "awesome-typescript-loader": "^3.2.3",
     "source-map-loader": "^0.1.6",
-    "typescript": "^2.4.2"
+    "typescript": "^2.4.2",
+    "mocha": "*",
+    "should": ">= 0.0.1"
   }
 }
