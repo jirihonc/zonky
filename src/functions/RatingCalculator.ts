@@ -7,7 +7,7 @@ export class LoanState {
     totalLoan: number;
     inProcess: boolean;
 
-    constructor(rating: string, numOfCust: number, avgLoan: number, totalLoan: number, inProcess: boolean) {
+    constructor(rating: string, numOfCust: number = 0, avgLoan: number = 0, totalLoan: number = 0, inProcess: boolean = false) {
         this.rating = rating;
         this.numOfCust = numOfCust;
         this.avgLoan = avgLoan;
@@ -121,6 +121,8 @@ function marketplace (rating: string, caller: any) {
     request.onerror = function (this: XMLHttpRequestEventTarget, ev: ErrorEvent) {
         console.log('err:', this);
         console.log('event:', ev);
+        caller.setState(new LoanState(rating)); 
+        alert("Network connection problem");
     };
 
     request.send();
@@ -137,16 +139,15 @@ export default function (rating: string, caller: any): void {
 
 function calculateLoan(rating: string, data : ZonkyLoan[]): LoanState {
    
-    let sum = 0;
     let count = 0;
-    
-    for (let user of data) {        
-        count++;
-        sum += user.amount;
-    }
+    let total = data.reduce(function(sum, user, index) {
+        count = index + 1;
+        return sum + user.amount;
+      }, 0);
 
-    console.log('Number of loans ' + count);
+
+    console.log('Number of loans: ' + count);
     // console.log('Avg loan is ' + (sum / count));
 
-    return new LoanState(rating, count, (sum / count), sum, false);
+    return new LoanState(rating, count, (total / count), total, false);
 }

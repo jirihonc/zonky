@@ -115,6 +115,7 @@ class RatingForm extends React.Component {
         let formValues = Object.assign({}, this.state, { [name]: target.value });
         RatingCalculator_1.default(target.value, this);
         // console.log('avg: ' + loan.avgLoan);       
+        // let loan = new LoanState('',0,0,0,false);
         // this.setState(loan); 
     }
     render() {
@@ -155,7 +156,7 @@ exports.default = RatingForm;
 
 Object.defineProperty(exports, "__esModule", { value: true });
 class LoanState {
-    constructor(rating, numOfCust, avgLoan, totalLoan, inProcess) {
+    constructor(rating, numOfCust = 0, avgLoan = 0, totalLoan = 0, inProcess = false) {
         this.rating = rating;
         this.numOfCust = numOfCust;
         this.avgLoan = avgLoan;
@@ -188,6 +189,7 @@ function auth() {
 function marketplace(rating, caller) {
     // https://www.thepolyglotdeveloper.com/2014/08/bypass-cors-errors-testing-apis-locally/
     // https://api.zonky.cz/loans/marketplace?rating__eq=D
+    console.log('init rating: ' + rating);
     caller.setState(new LoanState(rating, 0, 0, 0, true));
     var request = new XMLHttpRequest();
     request.open('GET', 'https://api.zonky.cz/loans/marketplace?rating__eq=' + rating);
@@ -214,6 +216,8 @@ function marketplace(rating, caller) {
     request.onerror = function (ev) {
         console.log('err:', this);
         console.log('event:', ev);
+        caller.setState(new LoanState(rating));
+        alert("Network connection problem");
     };
     request.send();
 }
@@ -224,15 +228,14 @@ function default_1(rating, caller) {
 }
 exports.default = default_1;
 function calculateLoan(rating, data) {
-    let sum = 0;
     let count = 0;
-    for (let user of data) {
-        count++;
-        sum += user.amount;
-    }
-    console.log('Number of loans ' + count);
+    let total = data.reduce(function (sum, user, index) {
+        count = index + 1;
+        return sum + user.amount;
+    }, 0);
+    console.log('Number of loans: ' + count);
     // console.log('Avg loan is ' + (sum / count));
-    return new LoanState(rating, count, (sum / count), sum, false);
+    return new LoanState(rating, count, (total / count), total, false);
 }
 
 

@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "rm -rf dist/*; cp {index.html,*.pem,favicon.ico} dist/; webpack;"
+    "build": "rm -rf dist/*; cp {index.html,*.pem,favicon.ico} dist/; mkdir dist/css; cp src/css/zonky.css dist/css;webpack;"
   },
   "author": "",
   "license": "ISC",

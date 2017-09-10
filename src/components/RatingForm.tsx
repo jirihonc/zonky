@@ -32,7 +32,7 @@ export default class RatingForm extends React.Component<LabelProps, LoanState> {
         ratingCalc(target.value, this);
 
         // console.log('avg: ' + loan.avgLoan);       
-
+        // let loan = new LoanState('',0,0,0,false);
         // this.setState(loan); 
     }  
 
