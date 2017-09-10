@@ -23,10 +23,20 @@ export default class RatingForm extends React.Component<LabelProps, LoanState> {
     formChanged(event: any) {
         const target = event.target;
         const name = target.name;
+        let rating = target.value;
  
-        let formValues = {...this.state, [name]: target.value};
+        let formValues = {...this.state, [name]: rating};
+        
+        // default value (clear previous state)
+        this.setState(new LoanState(rating, 0, 0, 0, true));
 
-        ratingCalc(target.value, (loan: LoanState) => this.setState(loan))
+        ratingCalc(
+            rating, 
+            (loan: LoanState) => this.setState(loan), 
+            (err: string) => {
+                this.setState(new LoanState(rating)); 
+                alert(err);
+            })
     }  
 
     render() {

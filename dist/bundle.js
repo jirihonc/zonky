@@ -112,17 +112,18 @@ class RatingForm extends React.Component {
     formChanged(event) {
         const target = event.target;
         const name = target.name;
-        let formValues = Object.assign({}, this.state, { [name]: target.value });
-        RatingCalculator_1.default(target.value, this);
-        // console.log('avg: ' + loan.avgLoan);       
-        // let loan = new LoanState('',0,0,0,false);
-        // this.setState(loan); 
+        let rating = target.value;
+        let formValues = Object.assign({}, this.state, { [name]: rating });
+        // default value (clear previous state)
+        this.setState(new RatingCalculator_1.LoanState(rating, 0, 0, 0, true));
+        RatingCalculator_1.default(rating, (loan) => this.setState(loan), (err) => {
+            this.setState(new RatingCalculator_1.LoanState(rating));
+            alert(err);
+        });
     }
     render() {
-        // let avg = this.state.avgLoan.toFixed(2);
         let avg = (this.state.inProcess) ? 'zpracovává se...' : this.state.avgLoan.toLocaleString('cs-CZ', { maximumFractionDigits: 0 }) + ' kč';
         const count = this.state.numOfCust;
-        // console.log('rendered avg: ' + avg);    
         return (React.createElement("div", null,
             React.createElement("h1", null, this.props.label),
             React.createElement("fieldset", null,
@@ -186,11 +187,10 @@ function auth() {
     request.send(body);
     return "done";
 }
-function marketplace(rating, caller) {
+function default_1(rating, updateLoanResult, errorResult) {
+    console.log('selected rating: ' + rating);
     // https://www.thepolyglotdeveloper.com/2014/08/bypass-cors-errors-testing-apis-locally/
     // https://api.zonky.cz/loans/marketplace?rating__eq=D
-    console.log('init rating: ' + rating);
-    caller.setState(new LoanState(rating, 0, 0, 0, true));
     var request = new XMLHttpRequest();
     request.open('GET', 'https://api.zonky.cz/loans/marketplace?rating__eq=' + rating);
     request.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
@@ -205,7 +205,7 @@ function marketplace(rating, caller) {
             if (this.responseText && this.responseText.startsWith("[")) {
                 const data = JSON.parse(this.responseText);
                 let loan = calculateLoan(rating, data);
-                caller.setState(loan);
+                updateLoanResult(loan);
             }
             else {
                 console.log('No response');
@@ -216,27 +216,21 @@ function marketplace(rating, caller) {
     request.onerror = function (ev) {
         console.log('err:', this);
         console.log('event:', ev);
-        caller.setState(new LoanState(rating));
-        alert("Network connection problem");
+        errorResult("Network connection problem: " + ev.type);
     };
     request.send();
 }
-function default_1(rating, caller) {
-    console.log('selected rating: ' + rating);
-    // auth();
-    marketplace(rating, caller);
-}
 exports.default = default_1;
 function calculateLoan(rating, data) {
-    let count = 0;
+    let count = data.length;
     let total = data.reduce(function (sum, user, index) {
-        count = index + 1;
         return sum + user.amount;
     }, 0);
     console.log('Number of loans: ' + count);
     // console.log('Avg loan is ' + (sum / count));
     return new LoanState(rating, count, (total / count), total, false);
 }
+exports.calculateLoan = calculateLoan;
 
 
 /***/ })

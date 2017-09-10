@@ -6,6 +6,7 @@ demo app for Zonky.cz
 npm install -g webpack<br/>
 npm install react react-dom @types/react @types/react-dom<br/>
 npm install typescript awesome-typescript-loader source-map-loader<br/>
+npm install mocha typescript mocha-typescript @types/mocha chai @types/chai source-map-support nyc --save-dev<br/>
 npm install express
 
 <h3>BUILD:</h3>

@@ -20,7 +20,7 @@ interface ZonkyPic {
     url: string
 }
 
-interface ZonkyLoan {
+export interface ZonkyLoan {
     id: number,
     url: string,
     name: string,
@@ -75,14 +75,13 @@ function auth(): string {
     return "done";
 }
 
-
-function marketplace (rating: string, updateLoanResult: (loan: LoanState) => void) {
+export default function (rating: string, updateLoanResult: (loan: LoanState) => void, errorResult: (errText: string) => void): void {
+    
+    console.log('selected rating: ' + rating);   
 
     // https://www.thepolyglotdeveloper.com/2014/08/bypass-cors-errors-testing-apis-locally/
     // https://api.zonky.cz/loans/marketplace?rating__eq=D
-
-    updateLoanResult(new LoanState(rating, 0, 0, 0, true));
-
+    
     var request = new XMLHttpRequest();
 
     request.open('GET', 'https://api.zonky.cz/loans/marketplace?rating__eq=' + rating);
@@ -111,10 +110,7 @@ function marketplace (rating: string, updateLoanResult: (loan: LoanState) => voi
                 updateLoanResult(loan); 
             } else {
                 console.log('No response');
-                console.log(this.responseText);
-
-                updateLoanResult(new LoanState(rating)); 
-                alert("Network connection problem: " + this.responseText);                
+                console.log(this.responseText);         
             }
         }
     };
@@ -123,27 +119,16 @@ function marketplace (rating: string, updateLoanResult: (loan: LoanState) => voi
     request.onerror = function (this: XMLHttpRequestEventTarget, ev: ErrorEvent) {
         console.log('err:', this);
         console.log('event:', ev);
-        updateLoanResult(new LoanState(rating)); 
-        alert("Network connection problem");
+        errorResult("Network connection problem: " + ev.type);
     };
 
     request.send();
-}
-
-// updateLoanResult(loan: LoanState)
-export default function (rating: string, updateLoanResult: (loan: LoanState) => void): void {
-    
-    console.log('selected rating: ' + rating);   
-
-    // auth();
-    marketplace(rating, updateLoanResult);
 } 
 
-function calculateLoan(rating: string, data : ZonkyLoan[]): LoanState {
+export function calculateLoan(rating: string, data : ZonkyLoan[]): LoanState {
    
-    let count = 0;
-    let total = data.reduce(function(sum, user, index) {
-        count = index + 1;
+    let count = data.length;
+    let total = data.reduce(function(sum, user, index) {        
         return sum + user.amount;
       }, 0);
 
